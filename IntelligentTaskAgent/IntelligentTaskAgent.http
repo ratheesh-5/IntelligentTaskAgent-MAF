@@ -1,0 +1,6 @@
+@IntelligentTaskAgent_HostAddress = http://localhost:5048
+
+GET {{IntelligentTaskAgent_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

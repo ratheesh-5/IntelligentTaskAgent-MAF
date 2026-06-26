@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IntelligentTaskAgent.Application\IntelligentTaskAgent.Application.csproj" />
+    <ProjectReference Include="..\IntelligentTaskAgent.Core\IntelligentTaskAgent.Core.csproj" />
+    <ProjectReference Include="..\IntelligentTaskAgent.Infrastructure\IntelligentTaskAgent.Infrastructure.csproj" />
+    <ProjectReference Include="..\IntelligentTaskAgent.MAF\IntelligentTaskAgent.MAF.csproj" />
+    <ProjectReference Include="..\IntelligentTaskAgent.Repositories\IntelligentTaskAgent.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

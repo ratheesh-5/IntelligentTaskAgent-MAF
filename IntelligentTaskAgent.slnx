@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="IntelligentTaskAgent.Application/IntelligentTaskAgent.Application.csproj" />
+  <Project Path="IntelligentTaskAgent.Core/IntelligentTaskAgent.Core.csproj" />
+  <Project Path="IntelligentTaskAgent.Infrastructure/IntelligentTaskAgent.Infrastructure.csproj" />
+  <Project Path="IntelligentTaskAgent.MAF/IntelligentTaskAgent.MAF.csproj" Id="c7331e6c-cc02-4fb6-88d2-ae1dae88969b" />
+  <Project Path="IntelligentTaskAgent.Notifications/IntelligentTaskAgent.Notifications.csproj" />
+  <Project Path="IntelligentTaskAgent.ReminderWorker/IntelligentTaskAgent.ReminderWorker.csproj" />
+  <Project Path="IntelligentTaskAgent.Repositories/IntelligentTaskAgent.Repositories.csproj" />
+  <Project Path="IntelligentTaskAgent.Telegram/IntelligentTaskAgent.Telegram.csproj" Id="fb17831a-61c6-415c-a11d-667dfe307a11" />
+  <Project Path="IntelligentTaskAgent/IntelligentTaskAgent.csproj" />
+</Solution>
