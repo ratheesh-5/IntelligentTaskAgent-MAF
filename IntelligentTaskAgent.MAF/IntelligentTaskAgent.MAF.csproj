@@ -34,4 +34,8 @@
     <Folder Include="Workflows\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IntelligentTaskAgent.Application\IntelligentTaskAgent.Application.csproj" />
+  </ItemGroup>
+
 </Project>

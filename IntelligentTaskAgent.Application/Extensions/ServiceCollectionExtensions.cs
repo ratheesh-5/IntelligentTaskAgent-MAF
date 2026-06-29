@@ -22,6 +22,8 @@ namespace IntelligentTaskAgent.Application.Extensions
             services.AddScoped<ITaskOrchestrationService, TaskOrchestrationService>();
             services.AddScoped<taskService>();
             services.AddCoreServices();
+            services.AddScoped<IReminderService, ReminderService>();
+
             return services;
         }
     }

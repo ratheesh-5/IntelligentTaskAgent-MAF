@@ -36,8 +36,6 @@ namespace IntelligentTaskAgent.Core.Extensions
             services.AddAgentServices();
             //services.AddScoped<ILLMResponseParser<TaskIntent>, OllamaResponseParser>();
 
-            services.AddScoped<ITaskService, TaskService>();
-
             return services;
         }
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IntelligentTaskAgent.MAF.Models.Plugins.Requests;
+using IntelligentTaskAgent.MAF.Models.Plugins.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,15 @@ using System.Threading.Tasks;
 
 namespace IntelligentTaskAgent.MAF.Plugins
 {
-    internal interface IReminderPlugin
+    public interface IReminderPlugin
     {
+        Task<ReminderResult> CreateReminderAsync(
+        CreateReminderRequest request);
+
+        Task<ReminderResult> UpdateReminderAsync(
+        UpdateReminderRequest request);
+
+        Task<bool> DeleteReminderAsync(
+            Guid taskId);
     }
 }

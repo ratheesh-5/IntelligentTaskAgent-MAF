@@ -1,7 +1,9 @@
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Models.Responses;
+using IntelligentTaskAgent.MAF.Plugins;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IntelligentTaskAgent.MAF.Agents
 {
@@ -14,26 +16,27 @@ namespace IntelligentTaskAgent.MAF.Agents
             IChatClient chatClient,
             IServiceProvider serviceProvider)
         {
+
+
+            // Resolve plugin from DI
+            var reminderPlugin =
+                serviceProvider.GetRequiredService<IReminderPlugin>();
+
+            var tools = new List<AITool>
+                {
+                    AIFunctionFactory.Create(reminderPlugin.CreateReminderAsync),
+
+                    AIFunctionFactory.Create(reminderPlugin.UpdateReminderAsync),
+
+                    AIFunctionFactory.Create(reminderPlugin.DeleteReminderAsync)
+                };
+
             _agent = new ChatClientAgent(
                 chatClient,
-                instructions: """
-You are an intelligent Reminder Assistant.
-
-Responsibilities:
-- Create reminders
-- Update reminders
-- Delete reminders
-- Search reminders
-- Update user profile
-
-Rules:
-- Be concise.
-- Ask follow-up questions if information is missing.
-- Never invent reminder details.
-- Use available tools whenever possible.
-""",
+               instructions: ReminderInstructions.SystemPrompt,
                 name: "ReminderAgent",
                 description: "Enterprise Reminder Assistant",
+                tools: tools,
                 services: serviceProvider);
         }
 

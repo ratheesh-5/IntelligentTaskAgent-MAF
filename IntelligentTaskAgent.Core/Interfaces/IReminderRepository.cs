@@ -12,5 +12,10 @@ namespace IntelligentTaskAgent.Core.Interfaces
         Task UpdateAsync(ReminderEntity reminder);
 
         Task<IEnumerable<ReminderEntity>> GetPendingAsync(DateTime utcNow);
+
+        Task DeleteReminderAsync(Guid taskId);
+
+        Task<ReminderEntity?> SearchByTaskIdAsync(Guid taskId);
+
     }
 }

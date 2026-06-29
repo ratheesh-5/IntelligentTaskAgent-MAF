@@ -1,5 +1,6 @@
 using IntelligentTaskAgent.MAF.Agents;
 using IntelligentTaskAgent.MAF.Memory;
+using IntelligentTaskAgent.MAF.Plugins;
 using IntelligentTaskAgent.MAF.Providers;
 using IntelligentTaskAgent.MAF.Runtime;
 using Microsoft.Extensions.AI;
@@ -22,9 +23,11 @@ namespace IntelligentTaskAgent.MAF
             services.AddSingleton<IChatClient>(sp =>
                 sp.GetRequiredService<IChatClientFactory>().Create());
 
-            services.AddSingleton<IReminderAgent, ReminderAgent>();
+            services.AddScoped<IReminderAgent, ReminderAgent>();
 
-            services.AddSingleton<IAgentRuntime, AgentRuntime>();
+            services.AddScoped<IAgentRuntime, AgentRuntime>();
+
+            services.AddScoped<IReminderPlugin, ReminderPlugin>();
 
             return services;
         }

@@ -33,5 +33,22 @@ namespace IntelligentTaskAgent.Repositories.Services
                                     .ToListAsync();
             return result;
         }
+
+        public async Task DeleteReminderAsync(Guid taskId)
+        {
+            var reminder = await this.intelligentTaskAgentDbContext.Reminders.FirstOrDefaultAsync(r => r.TaskId == taskId);
+            if (reminder != null)
+            {
+                this.intelligentTaskAgentDbContext.Reminders.Remove(reminder);
+                await this.intelligentTaskAgentDbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<ReminderEntity?> SearchByTaskIdAsync(Guid taskId)
+        {
+            return await this.intelligentTaskAgentDbContext.Reminders
+                .FirstOrDefaultAsync(r => r.TaskId == taskId);
+        }
+
     }
 }
