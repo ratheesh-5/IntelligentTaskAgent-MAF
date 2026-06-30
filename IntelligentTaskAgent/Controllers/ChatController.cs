@@ -9,11 +9,11 @@ namespace IntelligentTaskAgent.Controllers
     [Route("api/[controller]")]
     public class ChatController : Controller
     {
-        private readonly IAgentRuntime _agentHost;  
+        private readonly IAgentRuntime agentRuntime;  
 
-        public ChatController(IAgentRuntime agentHost)
+        public ChatController(IAgentRuntime agentRuntime)
         {
-            _agentHost = agentHost;
+            this.agentRuntime = agentRuntime;
         }
 
         [HttpPost]
@@ -23,8 +23,7 @@ namespace IntelligentTaskAgent.Controllers
         {
             try
             {
-                var response = await _agentHost
-                    .ReminderAgent
+                var response = await this.agentRuntime
                     .ChatAsync(request,
                         cancellationToken);
 

@@ -9,10 +9,8 @@ using IntelligentTaskAgent.MAF.Models.Responses;
 
 namespace IntelligentTaskAgent.MAF.Agents
 {
-    public interface IReminderAgent
+    public interface IReminderAgent : IAgent
     {
-        Task<ConversationResponse> ChatAsync(
-            ConversationRequest request,
-            CancellationToken cancellationToken = default);
+
     }
 }

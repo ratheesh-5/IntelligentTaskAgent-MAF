@@ -1,3 +1,4 @@
+using IntelligentTaskAgent.MAF.Enum;
 using IntelligentTaskAgent.MAF.Memory;
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Models.Responses;
@@ -11,6 +12,8 @@ namespace IntelligentTaskAgent.MAF.Agents
 
     public sealed class ReminderAgent : IReminderAgent
     {
+        public AgentType AgentType => AgentType.Reminder;
+
         private readonly ChatClientAgent _agent;
         private readonly IConversationMemory conversationMemory;
         public ReminderAgent(
@@ -67,7 +70,6 @@ namespace IntelligentTaskAgent.MAF.Agents
                     session,
                     null,
                     cancellationToken);
-
             await conversationMemory.SaveAsync(
                 conversationId,
                 session);

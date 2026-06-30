@@ -1,4 +1,4 @@
-﻿using IntelligentTaskAgent.MAF.Agents;
+﻿using IntelligentTaskAgent.MAF.Enum;
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Models.Responses;
 using System;
@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelligentTaskAgent.MAF.Runtime
+namespace IntelligentTaskAgent.MAF.Agents
 {
-    public interface IAgentRuntime
+    public interface IAgent
     {
+        AgentType AgentType { get; }
+
         Task<ConversationResponse> ChatAsync(
-                ConversationRequest request,
-                CancellationToken cancellationToken = default);
+            ConversationRequest request,
+            CancellationToken cancellationToken = default);
     }
 }
