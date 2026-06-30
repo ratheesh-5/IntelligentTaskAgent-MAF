@@ -1,3 +1,4 @@
+using IntelligentTaskAgent.MAF.Memory;
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Models.Responses;
 using IntelligentTaskAgent.MAF.Plugins;
@@ -11,12 +12,14 @@ namespace IntelligentTaskAgent.MAF.Agents
     public sealed class ReminderAgent : IReminderAgent
     {
         private readonly ChatClientAgent _agent;
-
+        private readonly IConversationMemory conversationMemory;
         public ReminderAgent(
             IChatClient chatClient,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            IConversationMemory conversationMemory)
         {
 
+            this.conversationMemory = conversationMemory;
 
             // Resolve plugin from DI
             var reminderPlugin =
@@ -41,29 +44,39 @@ namespace IntelligentTaskAgent.MAF.Agents
         }
 
         public async Task<ConversationResponse> ChatAsync(
-            ConversationRequest request,
-            CancellationToken cancellationToken = default)
+    ConversationRequest request,
+    CancellationToken cancellationToken = default)
         {
-            AgentSession? session = null;
+            var conversationId =
+    string.IsNullOrWhiteSpace(request.ConversationId)
+        ? Guid.NewGuid().ToString()
+        : request.ConversationId;
 
-            if (!string.IsNullOrWhiteSpace(request.ConversationId))
+            var session =
+                await conversationMemory.GetAsync(conversationId);
+
+            if (session == null)
             {
                 session = await _agent.CreateSessionAsync(
-                    request.ConversationId,
                     cancellationToken);
             }
 
-            AgentResponse response = await _agent.RunAsync(
-                request.Message,
-                session,
-                null,
-                cancellationToken);
+            AgentResponse response =
+                await _agent.RunAsync(
+                    request.Message,
+                    session,
+                    null,
+                    cancellationToken);
+
+            await conversationMemory.SaveAsync(
+                conversationId,
+                session);
 
             return new ConversationResponse
             {
                 Message = response.Text,
+                ConversationId = conversationId,
                 AgentId = response.AgentId,
-                ConversationId = request.ConversationId,
                 CreatedAt = response.CreatedAt
             };
         }

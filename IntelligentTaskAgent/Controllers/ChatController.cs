@@ -9,14 +9,13 @@ namespace IntelligentTaskAgent.Controllers
     [Route("api/[controller]")]
     public class ChatController : Controller
     {
-        private readonly IAgentRuntime _agentHost;
+        private readonly IAgentRuntime _agentHost;  
 
         public ChatController(IAgentRuntime agentHost)
         {
             _agentHost = agentHost;
         }
 
-        [HttpPost]
         [HttpPost]
         public async Task<ActionResult<ConversationResponse>> Chat(
     [FromBody] ConversationRequest request,

@@ -59,6 +59,7 @@ namespace IntelligentTaskAgent.Application.Services
             await this.taskRepository.AddAsync(task);
 
             var reminder = BuildReminder(command, task);
+            reminder.UserId = new Guid("95EE7F81-B46B-444F-A8EF-1D1A30575F03");
 
             await this.reminderRepository.AddAsync(reminder);
 

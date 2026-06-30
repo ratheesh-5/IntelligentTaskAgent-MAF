@@ -29,6 +29,8 @@ namespace IntelligentTaskAgent.MAF
 
             services.AddScoped<IReminderPlugin, ReminderPlugin>();
 
+            services.AddSingleton<IConversationMemory, InMemoryConversationStore>();
+
             return services;
         }
     }
