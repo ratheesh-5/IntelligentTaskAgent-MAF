@@ -2,6 +2,7 @@
 using IntelligentTaskAgent.Application.Models;
 using IntelligentTaskAgent.Core.Domain;
 using IntelligentTaskAgent.Core.Interfaces;
+using IntelligentTaskAgent.Core.RepositoryModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -159,6 +160,36 @@ namespace IntelligentTaskAgent.Application.Services
             await this.reminderRepository.DeleteReminderAsync(taskId);
 
             await this.taskRepository.DeleteAsync(taskId);
+        }
+
+        public async Task<List<ReminderDto>> SearchReminderAsync(
+    SearchReminderCommand command)
+        {
+            var criteria = new ReminderSearchCriteria
+            {
+                UserId = command.UserId,
+                Keyword = command.Keyword,
+                FromDate = command.FromDate,
+                ToDate = command.ToDate,
+                Status = command.Status,
+                Top = command.Top
+            };
+
+            var reminders =
+                await reminderRepository.SearchAsync(criteria);
+
+            return reminders
+                .Select(x => new ReminderDto
+                {
+                    TaskId = x.TaskId,
+                    ReminderId = x.ReminderId,
+                    Title = x.Title,
+                    Description = x.Description,
+                    ReminderAt = x.ReminderAt,
+                    Status = x.Status,
+                    Channel = x.Channel
+                })
+                .ToList();
         }
     }
 }

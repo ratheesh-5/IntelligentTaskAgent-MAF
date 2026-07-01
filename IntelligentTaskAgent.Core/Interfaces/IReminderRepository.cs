@@ -1,4 +1,5 @@
 ﻿using IntelligentTaskAgent.Core.Domain;
+using IntelligentTaskAgent.Core.RepositoryModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,8 @@ namespace IntelligentTaskAgent.Core.Interfaces
         Task DeleteReminderAsync(Guid taskId);
 
         Task<ReminderEntity?> SearchByTaskIdAsync(Guid taskId);
+
+        Task<List<ReminderProjection>> SearchAsync(ReminderSearchCriteria criteria);
 
     }
 }

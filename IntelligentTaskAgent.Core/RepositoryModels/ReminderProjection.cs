@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelligentTaskAgent.Application.Models
+namespace IntelligentTaskAgent.Core.RepositoryModels
 {
-    public sealed class ReminderDto
+    public sealed class ReminderProjection
     {
         public Guid TaskId { get; set; }
 

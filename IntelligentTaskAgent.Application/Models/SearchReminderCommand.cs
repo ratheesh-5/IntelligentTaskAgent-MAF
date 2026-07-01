@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelligentTaskAgent.MAF.Models.Plugins.Requests
+namespace IntelligentTaskAgent.Application.Models
 {
-    public sealed class SearchReminderRequest
+    public sealed class SearchReminderCommand
     {
         public Guid? UserId { get; set; }
 

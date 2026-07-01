@@ -20,5 +20,8 @@ namespace IntelligentTaskAgent.Application.Interfaces
         Task UpdateReminderAsync(UpdateReminderCommand command);
 
         Task DeleteReminderAsync(Guid taskId);
+
+        Task<List<ReminderDto>> SearchReminderAsync(
+    SearchReminderCommand command);
     }
 }

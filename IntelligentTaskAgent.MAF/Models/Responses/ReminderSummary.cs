@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelligentTaskAgent.Application.Models
+namespace IntelligentTaskAgent.MAF.Models.Responses
 {
-    public sealed class ReminderDto
+    public sealed class ReminderSummary
     {
         public Guid TaskId { get; set; }
-
-        public Guid ReminderId { get; set; }
 
         public string Title { get; set; } = string.Empty;
 

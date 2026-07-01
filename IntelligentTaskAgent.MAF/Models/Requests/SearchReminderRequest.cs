@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntelligentTaskAgent.MAF.Models.Plugins.Requests
+namespace IntelligentTaskAgent.MAF.Models.Requests
 {
     public sealed class SearchReminderRequest
     {

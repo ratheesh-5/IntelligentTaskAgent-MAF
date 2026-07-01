@@ -34,7 +34,9 @@ namespace IntelligentTaskAgent.MAF.Agents
 
                     AIFunctionFactory.Create(reminderPlugin.UpdateReminderAsync),
 
-                    AIFunctionFactory.Create(reminderPlugin.DeleteReminderAsync)
+                    AIFunctionFactory.Create(reminderPlugin.DeleteReminderAsync),
+                    
+                    AIFunctionFactory.Create(reminderPlugin.SearchReminderAsync)
                 };
 
             _agent = new ChatClientAgent(

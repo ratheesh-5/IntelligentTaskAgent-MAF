@@ -3,8 +3,9 @@ using IntelligentTaskAgent.Application.Models;
 using IntelligentTaskAgent.Application.Services;
 using IntelligentTaskAgent.MAF.Models.Plugins.Requests;
 using IntelligentTaskAgent.MAF.Models.Plugins.Responses;
-using System.Threading.Tasks;
+using IntelligentTaskAgent.MAF.Models.Responses;
 using Microsoft.Extensions.AI;
+using System.Threading.Tasks;
 
 
 namespace IntelligentTaskAgent.MAF.Plugins
@@ -77,6 +78,43 @@ namespace IntelligentTaskAgent.MAF.Plugins
             await reminderService.DeleteReminderAsync(taskId);
 
             return true;
+        }
+
+        public async Task<SearchReminderResult> SearchReminderAsync(
+     SearchReminderRequest request)
+        {
+            var command = new SearchReminderCommand
+            {
+                UserId = request.UserId,
+                Keyword = request.Keyword,
+                FromDate = request.FromDate,
+                ToDate = request.ToDate,
+                Status = request.Status,
+                Top = request.Top
+            };
+
+            var reminders =
+                await reminderService.SearchReminderAsync(command);
+
+            return new SearchReminderResult
+            {
+                Success = true,
+                Message = reminders.Any()
+                    ? $"{reminders.Count} reminder(s) found."
+                    : "No reminders found.",
+
+                Reminders = reminders
+                    .Select(x => new ReminderSummary
+                    {
+                        TaskId = x.TaskId,
+                        Title = x.Title,
+                        Description = x.Description,
+                        ReminderAt = x.ReminderAt,
+                        Status = x.Status,
+                        Channel = x.Channel
+                    })
+                    .ToList()
+            };
         }
     }
 }
