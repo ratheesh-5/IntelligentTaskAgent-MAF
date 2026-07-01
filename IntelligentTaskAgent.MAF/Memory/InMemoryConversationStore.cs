@@ -11,35 +11,31 @@ namespace IntelligentTaskAgent.MAF.Memory
     public sealed class InMemoryConversationStore
     : IConversationMemory
     {
-        private readonly ConcurrentDictionary<string, AgentSession> sessions
-            = new();
-
-        public Task<AgentSession?> GetAsync(
-            string conversationId)
+        private readonly ConcurrentDictionary<
+    string,
+    ConversationContext> conversations = new();
+        public Task<ConversationContext?> GetAsync(
+    string conversationId)
         {
-            sessions.TryGetValue(
+            conversations.TryGetValue(
                 conversationId,
-                out var session);
+                out var context);
 
-            return Task.FromResult(session);
+            return Task.FromResult(context);
         }
 
         public Task SaveAsync(
-            string conversationId,
-            AgentSession session)
+     ConversationContext context)
         {
-            sessions.AddOrUpdate(
-                conversationId,
-                session,
-                (_, _) => session);
+            conversations[context.ConversationId] = context;
 
             return Task.CompletedTask;
         }
 
         public Task RemoveAsync(
-            string conversationId)
+    string conversationId)
         {
-            sessions.TryRemove(
+            conversations.TryRemove(
                 conversationId,
                 out _);
 

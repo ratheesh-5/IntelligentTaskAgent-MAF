@@ -16,7 +16,7 @@ namespace IntelligentTaskAgent.MAF.Agents
     {
         public AgentType AgentType => AgentType.Reminder;
 
-        private readonly ChatClientAgent _agent;
+        private readonly ChatClientAgent agent;
         private readonly IConversationMemory conversationMemory;
         public ReminderAgent(
             IChatClient chatClient,
@@ -47,7 +47,7 @@ namespace IntelligentTaskAgent.MAF.Agents
                 .With(ReminderInstructions.Prompt)
                 .Build();
 
-            _agent = new ChatClientAgent(
+            agent = new ChatClientAgent(
                 chatClient,
                 instructions: prompt,
                 name: "ReminderAgent",
@@ -65,24 +65,31 @@ namespace IntelligentTaskAgent.MAF.Agents
         ? Guid.NewGuid().ToString()
         : request.ConversationId;
 
-            var session =
-                await conversationMemory.GetAsync(conversationId);
+            var context =
+            await conversationMemory.GetAsync(
+                conversationId);
 
-            if (session == null)
+            if (context == null)
             {
-                session = await _agent.CreateSessionAsync(
-                    cancellationToken);
+                var session =
+                    await agent.CreateSessionAsync(
+                        cancellationToken);
+
+                context = new ConversationContext
+                {
+                    ConversationId = conversationId,
+                    Session = session
+                };
             }
 
             AgentResponse response =
-                await _agent.RunAsync(
+                await agent.RunAsync(
                     request.Message,
-                    session,
+                    context.Session,
                     null,
                     cancellationToken);
-            await conversationMemory.SaveAsync(
-                conversationId,
-                session);
+
+            await conversationMemory.SaveAsync(context);
 
             return new ConversationResponse
             {

@@ -28,10 +28,12 @@ namespace IntelligentTaskAgent.MAF
 
             //Memory
             services.AddSingleton<IConversationMemory, InMemoryConversationStore>();
+            services.AddSingleton<IConversationContextService, ConversationContextService>();
 
             // Agents
             services.AddScoped<IReminderAgent, ReminderAgent>();
             services.AddScoped<IRouterAgent, AgentRouter>();
+            services.AddTransient<IUserProfileAgent, UserProfileAgent>();
 
             // Factory
             services.AddScoped<IAgentFactory, agentFactory>();
@@ -41,6 +43,7 @@ namespace IntelligentTaskAgent.MAF
 
             // Plugins
             services.AddScoped<IReminderPlugin, ReminderPlugin>();
+            services.AddScoped<IUserProfilePlugin, UserProfilePlugin>();
 
             return services;
         }

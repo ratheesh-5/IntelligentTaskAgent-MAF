@@ -1,10 +1,12 @@
 ﻿using IntelligentTaskAgent.Application.Interfaces;
 using IntelligentTaskAgent.Application.Services;
+using IntelligentTaskAgent.Application.UserProfile.Interfaces;
+using IntelligentTaskAgent.Application.UserProfile.Services;
+using IntelligentTaskAgent.Core.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using IntelligentTaskAgent.Core.Extensions;
 using taskService = IntelligentTaskAgent.Core.Services.TaskOrchestrationService;
 
 namespace IntelligentTaskAgent.Application.Extensions
@@ -22,7 +24,9 @@ namespace IntelligentTaskAgent.Application.Extensions
             services.AddScoped<ITaskOrchestrationService, TaskOrchestrationService>();
             services.AddScoped<taskService>();
             services.AddCoreServices();
+
             services.AddScoped<IReminderService, ReminderService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
 
             return services;
         }

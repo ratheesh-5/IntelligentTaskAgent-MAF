@@ -9,12 +9,11 @@ namespace IntelligentTaskAgent.MAF.Memory
 {
     public interface IConversationMemory
     {
-        Task<AgentSession?> GetAsync(
+        Task<ConversationContext?> GetAsync(
             string conversationId);
 
         Task SaveAsync(
-            string conversationId,
-            AgentSession session);
+            ConversationContext context);
 
         Task RemoveAsync(
             string conversationId);

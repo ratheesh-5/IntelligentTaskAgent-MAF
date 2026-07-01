@@ -22,6 +22,7 @@ namespace IntelligentTaskAgent.Application.Services
         {
             var user = new User
             {
+
                 UserId = Guid.NewGuid(),
                 Name = name,
                 CreatedAt = DateTime.UtcNow
