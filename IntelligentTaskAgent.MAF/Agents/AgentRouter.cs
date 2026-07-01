@@ -1,4 +1,6 @@
-﻿using IntelligentTaskAgent.MAF.Enum;
+﻿using IntelligentTaskAgent.MAF.Common;
+using IntelligentTaskAgent.MAF.Enum;
+using IntelligentTaskAgent.MAF.Instructions.Router;
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Routing;
 using IntelligentTaskAgent.MAF.Routing.Models;
@@ -23,7 +25,7 @@ namespace IntelligentTaskAgent.MAF.Agents
         {
             this.agent = new ChatClientAgent(
                 chatClient,
-                instructions: RouterInstructions.SystemPrompt,
+                instructions: RouterInstructions.Prompt,
                 name: "RouterAgent",
                 description: "Routes user requests to the correct enterprise agent.",
                 services: serviceProvider);
@@ -39,7 +41,7 @@ namespace IntelligentTaskAgent.MAF.Agents
                     request.Message,
                     cancellationToken: cancellationToken);
 
-            var json = response.Text;
+            var json = JsonResponseCleaner.Clean(response.Text);
 
             var result = JsonSerializer.Deserialize<AgentRouteResult>(
                 json,

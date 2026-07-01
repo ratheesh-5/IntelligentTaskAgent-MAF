@@ -1,4 +1,6 @@
 using IntelligentTaskAgent.MAF.Enum;
+using IntelligentTaskAgent.MAF.Instructions;
+using IntelligentTaskAgent.MAF.Instructions.Reminder;
 using IntelligentTaskAgent.MAF.Memory;
 using IntelligentTaskAgent.MAF.Models.Requests;
 using IntelligentTaskAgent.MAF.Models.Responses;
@@ -39,9 +41,15 @@ namespace IntelligentTaskAgent.MAF.Agents
                     AIFunctionFactory.Create(reminderPlugin.SearchReminderAsync)
                 };
 
+            var prompt = PromptBuilder
+                .Create("You are an Enterprise Reminder Assistant.")
+                .WithCommon()
+                .With(ReminderInstructions.Prompt)
+                .Build();
+
             _agent = new ChatClientAgent(
                 chatClient,
-               instructions: ReminderInstructions.GetPrompt(),
+                instructions: prompt,
                 name: "ReminderAgent",
                 description: "Enterprise Reminder Assistant",
                 tools: tools,
