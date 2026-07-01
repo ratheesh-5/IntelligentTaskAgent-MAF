@@ -41,7 +41,7 @@ namespace IntelligentTaskAgent.MAF.Agents
 
             _agent = new ChatClientAgent(
                 chatClient,
-               instructions: ReminderInstructions.SystemPrompt,
+               instructions: ReminderInstructions.GetPrompt(),
                 name: "ReminderAgent",
                 description: "Enterprise Reminder Assistant",
                 tools: tools,
